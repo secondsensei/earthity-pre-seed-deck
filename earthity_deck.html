@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthity Technologies — Seed Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#fff}
+.D{position:relative;width:100vw;height:100vh;overflow:hidden;font-family:'DM Sans',system-ui;user-select:none;background:#fff}
+.S{position:absolute;inset:0;display:flex;flex-direction:column;padding:48px 64px;visibility:hidden;opacity:0;background:#fff;transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1);transform:translateY(14px)}
+.S.on{visibility:visible;opacity:1;transform:translateY(0)}
+.S.out{opacity:0;transform:translateY(-10px)}
+.s-head{flex-shrink:0;padding-top:40px;margin-bottom:8px}
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;overflow:hidden}
+.H1{font-family:Manrope,system-ui;font-weight:800;font-size:clamp(44px,7vw,78px);line-height:1.06;color:#111;letter-spacing:-.04em}
+.H2{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(34px,5.2vw,58px);line-height:1.1;color:#111;letter-spacing:-.03em}
+.H3{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(24px,3.4vw,38px);line-height:1.15;color:#111;letter-spacing:-.02em}
+.mt{color:#777;font-size:clamp(20px,2.6vw,28px);line-height:1.45}
+.ab{color:#185FA5}.aw{color:#C05A24}
+.tg{display:inline-block;font-size:clamp(15px,1.8vw,20px);font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:6px;background:#EAF1F8;color:#185FA5}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
+.S.on .rv{opacity:1;transform:translateY(0)}
+.S.on .rv:nth-child(2){transition-delay:.08s}
+.S.on .rv:nth-child(3){transition-delay:.16s}
+.S.on .rv:nth-child(4){transition-delay:.24s}
+.S.on .rv:nth-child(5){transition-delay:.32s}
+.nv{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:20}
+.dt{width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:#111;opacity:.12;transition:all .2s}
+.dt.on{opacity:.55;transform:scale(1.4)}
+.sn{position:absolute;top:24px;right:32px;font-size:clamp(15px,1.8vw,20px);font-weight:500;color:#aaa;z-index:20;font-family:'DM Sans',system-ui}
+.lg{position:absolute;top:24px;left:32px;font-family:Manrope,system-ui;font-weight:700;font-size:clamp(18px,2vw,22px);color:#111;z-index:20}
+.hr{width:44px;height:3px;border-radius:2px;background:#185FA5;margin:16px 0}
+.row{display:flex;gap:16px}
+.sc{flex:1;border-radius:14px;padding:30px 28px}
+.sc-b{background:#EAF1F8}.sc-a{background:#FEF0E5}
+.sc .n{font-family:Manrope,system-ui;font-weight:800;font-size:clamp(56px,7.5vw,90px);line-height:1.02;letter-spacing:-.03em}
+.sc-b .n{color:#0C447C}.sc-a .n{color:#993C1D}
+.sc .l{font-size:clamp(18px,2.2vw,24px);font-weight:500;margin-top:6px}
+.sc-b .l{color:#3A6A9B}.sc-a .l{color:#A0713E}
+.cols{display:flex;gap:16px;margin-top:14px}
+.col{flex:1;border-radius:12px;padding:22px 24px}
+.col-b{background:#EAF1F8}.col-w{background:#FEF0E5}
+.ch{font-weight:600;font-size:clamp(20px,2.5vw,28px);margin-bottom:8px}
+.col-b .ch{color:#185FA5}.col-w .ch{color:#C05A24}
+.ci{font-size:clamp(18px,2.2vw,24px);line-height:1.7;color:#555}
+.col-b .ci::before{content:"\2014  ";color:#85B7EB}
+.col-w .ci::before{content:"\2014  ";color:#E8A87C}
+.pr{display:flex;gap:14px;margin-top:16px}
+.ph{flex:1;border-radius:14px;padding:24px 26px;background:#F7F7F5;border:1px solid #EAEAE6}
+.ph.em{background:#EAF1F8;border-color:#B5D4F4}
+.ph-lb{font-size:clamp(14px,1.7vw,19px);font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#aaa;margin-bottom:6px}
+.ph.em .ph-lb{color:#3A6A9B}
+.ph-t{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(22px,2.8vw,32px);color:#111;line-height:1.15;margin-bottom:4px}
+.ph.em .ph-t{color:#0C447C}
+.ph-d{font-size:clamp(16px,2vw,22px);color:#888;line-height:1.4}
+.ph.em .ph-d{color:#3A6A9B}
+.ps{display:flex;gap:0;align-items:center;margin-top:14px;flex:1;min-height:0;max-height:calc(100% - 80px)}
+.ps-t{flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:24px}
+.sp{font-size:clamp(18px,2.2vw,24px);color:#555;line-height:1.9}
+.sp b{color:#111;font-weight:600}
+.dv{flex:0 0 45%;height:100%;max-height:320px;background:#EAF1F8;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.tr-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:10px}
+.tr-dot{width:10px;height:10px;border-radius:50%;background:#185FA5;margin-top:8px;flex-shrink:0}
+.tr-name{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(20px,2.6vw,28px);color:#111}
+.tr-desc{font-size:clamp(18px,2.2vw,24px);color:#777}
+.ue-row{display:flex;gap:14px;margin-top:18px}
+.ue{flex:1;text-align:center;border-radius:12px;padding:20px 14px}
+.ue:nth-child(1){background:#FEF0E5}.ue:nth-child(2){background:#F7F7F5}.ue:nth-child(3){background:#F0F7EE}.ue:nth-child(4){background:#EAF1F8}
+.ue-p{font-size:clamp(16px,1.9vw,21px);font-weight:500;color:#999;margin-bottom:4px}
+.ue-n{font-family:Manrope,system-ui;font-weight:800;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.02em}
+.ue:nth-child(1) .ue-n{color:#993C1D}.ue:nth-child(2) .ue-n{color:#555}.ue:nth-child(3) .ue-n{color:#27500A}.ue:nth-child(4) .ue-n{color:#0C447C}
+.ue-l{font-size:clamp(16px,1.9vw,21px);color:#999;margin-top:2px}
+.ms{display:flex;gap:18px;margin-top:20px}
+.ms-c{flex:1;border-radius:14px;padding:28px 30px}
+.ms-s{background:#F7F7F5}.ms-l{background:#EAF1F8}
+.ms-c .ms-n{font-family:Manrope,system-ui;font-weight:800;font-size:clamp(42px,5.5vw,70px);letter-spacing:-.03em;line-height:1.08}
+.ms-s .ms-n{color:#555}.ms-l .ms-n{color:#0C447C}
+.ms-c .ms-d{font-size:clamp(18px,2.2vw,24px);color:#888;margin-top:5px}
+.tm{display:flex;gap:40px;margin-top:14px}
+.tm-col{flex:1;display:flex;gap:18px;align-items:flex-start}
+.tm-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #EAF1F8}
+.tm-info{flex:1}
+.tm-name{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(20px,2.4vw,28px);color:#111}
+.tm-role{font-size:clamp(18px,2.2vw,24px);color:#185FA5;font-weight:500;margin-bottom:6px}
+.tm-cred{font-size:clamp(18px,2.2vw,24px);color:#777;line-height:1.65}
+.tl{margin-top:16px}
+.tl-r{display:flex;align-items:center;gap:20px;padding:10px 0;border-bottom:1px solid #F0F0ED}
+.tl-r:last-child{border:none}
+.tl-date{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#185FA5;width:140px;flex-shrink:0}
+.tl-ev{font-size:clamp(20px,2.4vw,26px);color:#333}
+.uf{display:flex;gap:14px;margin-top:20px}
+.uf-c{flex:1;border-radius:12px;padding:20px 22px;background:#F7F7F5}
+.uf-p{font-family:Manrope,system-ui;font-weight:800;font-size:clamp(28px,3.6vw,44px);color:#185FA5;letter-spacing:-.02em}
+.uf-l{font-size:clamp(18px,2.2vw,24px);color:#777;margin-top:2px}
+.close-q{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(30px,4.2vw,52px);color:#111;line-height:1.3;letter-spacing:-.025em}
+.close-q em{font-style:italic;color:#185FA5}
+.close-contact{font-size:clamp(18px,2.2vw,24px);color:#777;margin-top:28px}
+.fw-wrap{display:flex;justify-content:center;margin-top:16px;flex:1;align-items:center;min-height:0}
+</style>
+</head>
+<body>
+<div class="D" tabindex="0" id="D">
+<span class="lg">earthity</span>
+<span class="sn" id="sn">01 / 14</span>
+
+<div class="S on" data-i="0">
+<div class="s-head"><span class="tg rv">Seed round · March 2026</span></div>
+<div class="s-body">
+<div class="H1 rv">28 systems.</div>
+<div class="H1 rv">Zero interoperability.</div>
+<div class="hr rv"></div>
+<div class="mt rv">We surveyed every drone dock on the market. Each one works with exactly one drone.</div>
+</div></div>
+
+<div class="S" data-i="1">
+<div class="s-head"><span class="tg rv">Problem</span></div>
+<div class="s-body">
+<div class="H1 rv">The market is <span class="ab">stuck.</span></div>
+<div class="row rv" style="margin-top:24px">
+<div class="sc sc-b"><div class="n">28</div><div class="l">Systems surveyed</div></div>
+<div class="sc sc-b"><div class="n">1</div><div class="l">Drone per dock</div></div>
+<div class="sc sc-a"><div class="n">0</div><div class="l">Cross-compatible</div></div>
+</div></div></div>
+
+<div class="S" data-i="2">
+<div class="s-head"><span class="tg rv">Cost of inaction</span></div>
+<div class="s-body">
+<div class="rv" style="margin-bottom:4px">
+<span style="font-family:Manrope,system-ui;font-weight:800;font-size:clamp(60px,8.5vw,100px);color:#C05A24;letter-spacing:-.04em;line-height:1">40–60%</span>
+<div class="mt" style="margin-top:4px">of delivery cost is labor.</div>
+</div>
+<div class="cols rv">
+<div class="col col-b"><div class="ch">Today</div><div class="ci">Manual ground ops</div><div class="ci">Range-locked</div><div class="ci">Negative unit economics</div></div>
+<div class="col col-w"><div class="ch">With Earthity</div><div class="ci">Fully automated</div><div class="ci">Multi-hop range</div><div class="ci">$2 per delivery at scale</div></div>
+</div></div></div>
+
+<div class="S" data-i="3">
+<div class="s-head"><span class="tg rv">Why now</span></div>
+<div class="s-body">
+<div class="H1 rv">Part 108 drops in <span class="ab">months.</span></div>
+<div class="mt rv" style="margin-top:4px">The starting gun fires once.</div>
+<div class="cols rv">
+<div class="col col-b"><div class="ch">Enables</div><div class="ci">BVLOS operations</div><div class="ci">Delivery at scale</div><div class="ci">Market expansion</div></div>
+<div class="col col-w"><div class="ch">Doesn't provide</div><div class="ci">Charging infrastructure</div><div class="ci">Ground automation</div><div class="ci">Network coverage</div></div>
+</div></div></div>
+
+<div class="S" data-i="4">
+<div class="s-head"><span class="tg rv">Product</span></div>
+<div class="s-body">
+<div class="H1 rv">One dock. <span class="ab">Any drone.</span></div>
+<div class="ps rv">
+<div class="ps-t">
+<div class="sp"><b>Automated</b> launch, land, recharge</div>
+<div class="sp"><b>Sub-100 lb</b> &middot; rooftop-ready</div>
+<div class="sp"><b>Cloud-connected</b> telemetry</div>
+<div class="sp"><b>B2B + B2C</b> &middot; every unit joins the network</div>
+<div class="sp" style="margin-top:10px;color:#185FA5;font-weight:600">Prototype: September 2026</div>
+</div>
+<div class="dv">
+<svg viewBox="0 0 200 150" fill="none" style="width:70%">
+<rect x="20" y="68" width="160" height="58" rx="10" fill="#185FA5" opacity=".1" stroke="#185FA5" stroke-width="1.2"/>
+<rect x="34" y="80" width="132" height="12" rx="4" fill="#185FA5" opacity=".18"/>
+<rect x="46" y="100" width="108" height="6" rx="3" fill="#185FA5" opacity=".12"/>
+<rect x="56" y="114" width="88" height="4" rx="2" fill="#185FA5" opacity=".08"/>
+<line x1="100" y1="68" x2="100" y2="46" stroke="#185FA5" stroke-width="1.2" stroke-dasharray="4 3"/>
+<path d="M56 46 L100 22 L144 46" fill="#B5D4F4" fill-opacity=".4" stroke="#185FA5" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="100" cy="32" r="6" fill="#185FA5" opacity=".3"/>
+<line x1="70" y1="38" x2="46" y2="26" stroke="#85B7EB" stroke-width="1"/>
+<line x1="130" y1="38" x2="154" y2="26" stroke="#85B7EB" stroke-width="1"/>
+<circle cx="46" cy="26" r="3" fill="#85B7EB"/><circle cx="154" cy="26" r="3" fill="#85B7EB"/>
+</svg>
+</div>
+</div></div></div>
+
+<div class="S" data-i="5">
+<div class="s-head"><span class="tg rv">Business model</span></div>
+<div class="s-body">
+<div class="H2 rv">Sell docks to seed a network.<br><span class="ab">The network is the business.</span></div>
+<div class="pr rv">
+<div class="ph"><div class="ph-lb">Layer 1</div><div class="ph-t">OEM wholesale</div><div class="ph-d">Seeds installed base</div></div>
+<div class="ph"><div class="ph-lb">Layer 2</div><div class="ph-t">Consumer network</div><div class="ph-d">Every unit becomes a node</div></div>
+<div class="ph em" style="flex:1.15"><div class="ph-lb">Layer 3</div><div class="ph-t">Fleet network</div><div class="ph-d">Recurring &middot; Compounding &middot; 99% margin</div></div>
+</div>
+<div class="mt rv" style="margin-top:12px">COGS: $3,520 &rarr; $76 &nbsp;&middot;&nbsp; Skydio dock = $25K &nbsp;&middot;&nbsp; Earthity = sub-$2K</div>
+</div></div>
+
+<div class="S" data-i="6">
+<div class="s-head"><span class="tg rv">Network effect</span></div>
+<div class="s-body" style="align-items:center">
+<div class="H1 rv" style="text-align:center">Density is the moat.</div>
+<div class="fw-wrap rv">
+<svg viewBox="0 0 500 340" style="width:100%;max-width:600px;max-height:100%">
+<rect x="182" y="8" width="136" height="48" rx="12" fill="#EAF1F8" stroke="#B5D4F4" stroke-width="1.5"/>
+<text x="250" y="38" text-anchor="middle" fill="#0C447C" font-family="Manrope,system-ui" font-weight="700" font-size="15">More docks deployed</text>
+
+<rect x="362" y="76" width="130" height="48" rx="12" fill="#EAF1F8" stroke="#B5D4F4" stroke-width="1.5"/>
+<text x="427" y="106" text-anchor="middle" fill="#0C447C" font-family="Manrope,system-ui" font-weight="700" font-size="15">More coverage</text>
+
+<rect x="362" y="216" width="130" height="48" rx="12" fill="#EAF1F8" stroke="#B5D4F4" stroke-width="1.5"/>
+<text x="427" y="246" text-anchor="middle" fill="#0C447C" font-family="Manrope,system-ui" font-weight="700" font-size="15">More operators</text>
+
+<rect x="182" y="284" width="136" height="48" rx="12" fill="#185FA5"/>
+<text x="250" y="304" text-anchor="middle" fill="#fff" font-family="Manrope,system-ui" font-weight="800" font-size="15">More revenue</text>
+<text x="250" y="322" text-anchor="middle" fill="#B5D4F4" font-family="DM Sans,system-ui" font-weight="500" font-size="12">per dock</text>
+
+<rect x="8" y="146" width="130" height="48" rx="12" fill="#EAF1F8" stroke="#B5D4F4" stroke-width="1.5"/>
+<text x="73" y="176" text-anchor="middle" fill="#0C447C" font-family="Manrope,system-ui" font-weight="700" font-size="15">More capital</text>
+
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M2 1.5L8 5L2 8.5" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></marker></defs>
+
+<path d="M318 32 Q370 32 380 70" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M440 124 Q440 170 440 210" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M380 264 Q320 284 310 284" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M182 308 Q100 308 80 200" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ah)"/>
+<path d="M70 146 Q70 60 176 38" fill="none" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ah)"/>
+</svg>
+</div></div></div>
+
+<div class="S" data-i="7">
+<div class="s-head"><span class="tg rv">Traction</span></div>
+<div class="s-body">
+<div class="H1 rv">1 year. $0 raised.</div>
+<div style="margin-top:18px" class="rv">
+<div class="tr-item"><div class="tr-dot"></div><div><div class="tr-name">Thoron &mdash; LOI signed</div><div class="tr-desc">US enterprise drone manufacturer</div></div></div>
+<div class="tr-item"><div class="tr-dot"></div><div><div class="tr-name">Zing &mdash; LOI signed</div><div class="tr-desc">Drone distributor, AF-100 dock</div></div></div>
+<div class="tr-item"><div class="tr-dot"></div><div><div class="tr-name">12 months full-time development</div><div class="tr-desc">Autonomous charging + precision landing built</div></div></div>
+<div class="tr-item"><div class="tr-dot" style="background:#C05A24"></div><div><div class="tr-name">CTO onboarded &middot; supplier sourced</div><div class="tr-desc">Ex-Nvidia, UC Berkeley &middot; German charging hardware</div></div></div>
+</div>
+<div class="mt rv" style="margin-top:10px;font-style:italic">LOIs are not binding. Converting to agreements with deposits.</div>
+</div></div>
+
+<div class="S" data-i="8">
+<div class="s-head"><span class="tg rv">Unit economics</span></div>
+<div class="s-body">
+<div class="H1 rv">$3,520 <span style="color:#bbb">&rarr;</span> <span class="ab">$76</span></div>
+<div class="ue-row rv">
+<div class="ue"><div class="ue-p">Pilot '27</div><div class="ue-n">$3,520</div><div class="ue-l">-26% margin</div></div>
+<div class="ue"><div class="ue-p">Growth '28–29</div><div class="ue-n">$2,153</div><div class="ue-l">Breakeven</div></div>
+<div class="ue"><div class="ue-p">Scale '31+</div><div class="ue-n">$798</div><div class="ue-l">53%+ margin</div></div>
+<div class="ue"><div class="ue-p">Mature '34+</div><div class="ue-n">$76</div><div class="ue-l">99%+ margin</div></div>
+</div>
+<div class="mt rv" style="margin-top:14px">Skydio X10 dock = $25,000 &nbsp;&middot;&nbsp; Earthity target = sub-$2,000</div>
+</div></div>
+
+<div class="S" data-i="9">
+<div class="s-head"><span class="tg rv">Market size</span></div>
+<div class="s-body">
+<div class="H1 rv">14,000 docks to <span class="ab">$100M.</span></div>
+<div class="ms rv">
+<div class="ms-c ms-s"><div class="ms-n">$10M</div><div class="ms-d">5K docks &middot; $2K avg revenue</div></div>
+<div class="ms-c ms-l"><div class="ms-n">$100M</div><div class="ms-d">14K docks &middot; $7K avg revenue</div></div>
+</div>
+<div class="mt rv" style="margin-top:14px">Revenue per dock climbs as fleet network compounds.</div>
+</div></div>
+
+<div class="S" data-i="10">
+<div class="s-head"><span class="tg rv">Team</span></div>
+<div class="s-body">
+<div class="H1 rv">Aerospace + Silicon.</div>
+<div class="tm rv">
+<div class="tm-col">
+<img class="tm-photo" src="data:image/jpeg;base64,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" alt="Tanumaya Bhowmik"/>
+<div class="tm-info"><div class="tm-name">Tanumaya Bhowmik</div><div class="tm-role">CEO</div><div class="tm-cred">Aerospace Engineering, Rutgers<br>Satellite Systems, L3Harris<br>Inertial Navigation, Lockheed Martin</div></div>
+</div>
+<div class="tm-col">
+<img class="tm-photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACWAJYDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0mlptOFZjHClpopaQC0tJSigBaQnFc54w8YWvhSyRnXzrybPkw5xnHUk9hXjWt/E3W9aJiaQW0J4MMDFPzPU01FsD3O+8T6JprFbrUYlcHBRAXOfTgGoIfGfh+Z1T+0FiZjhfPUxg/iwxXzY+t6g0bBLqbZu+4XLAYPoaSKbzYtzFic5/kP61XIFz6thuYLhN0E0Uq+sbhh+lPyD0r5u8O643h7UxPaz4bO1kHCkDsa9v0jxTY3tvF5l1bJOy7mjWUHbUtWGdCaaacDuGR0NIakBhNNNONMNACGiiigQtFJmimA+lFJSimA4UopBTqQAKbNKkEEk0jqkcalmZjgKBySaeBXA/FzWm07wqthC+2bUJNhwefLXlvz4H40JXYHjXirxDPrWsXN5NM0hkbCnoAgPygDsKxYrOe5+YK2PWtPw1oraxqh3g+RHy/v7V6RDpNvEgVYkC/SipVUNEb0qLmrnm9no9zIw8uLcw61op4V1IoAIuK9Gt7RI2Hloo+gratIsnP86xeJfQ6I4OL3PEpPDmoW9wdwXzM5APNEN3JY3Iiv1fYvUKAT9eev6V9AR6Pa35xLAj54yV6Vy/i/wEZ9OkmtFHnwqWQdCw7rThiLu0hTwvKvdOh8B63bajoMcMVwZTAdgLdcdR/h+FdWa+ffA2ox6Z4gtTcxSLG8ojYg8oScflnqK+ga1krM4hhphp5phpAJRSUUALRSUUxEtOFNpRTEOFOpopwpDHCvGPjOJJNc01CTsFsSo99xz/AEr2cV5h8YrTzxoRTHmyTvAD9dp/pTi7MDnPB1iINPBAHzHJx3NdHt2nbSWVmmnWSQZ4QcnpVFPEWmSTFDdIDnGSa5J3k20enTtBJM14IyBnH1rXtwowAMnPNULK5tZUEiSK6dyDVskJOfLcEE4+lZNM6YnU6d5UUfbcTWg8ayocqOQa46HXbC0AW4u4owDglnAxW1pvizR9Tu1s7W7SSRuFx0J9KOV22M5tJnjnivT10bxkGjUIpuUfAHTkf/Xr3AdK8/8AiHoxm8YeHphgpdXCwtkcZVlPP4Zr0JjknFdsXeKPMqq02RmmGnmmGmZiUUUlABRRRTES0oNNpRTEPFOFMFPFADhXnvxIlFzqvh2xRRvjvBO7E/w4PGPwr0EVxPjCyVvEelXhPIUrj6bj/Wok7K5tRipSszMvESaBo5MbGB3ZPauSuodDsZ4BJpk8omk8tTnbj3PfHPpXYzIWQHIFVZF4BJGR04BrnUrHocnMZ1zBZaVcTW9qrRyxkcI+9GHsa6vRbEahpdy0jsGRc8da5tIhcS/Pg7OQO1dz4PWNYpwx5fAAx2qZO5rHRHmmqvZ2gkeSwNw6LuKA4OPr611nhWw0m+t7G6OjPZyznzI54ZidjA8K/AwTjjrWxrfhqBLsXUAAycun9RW/pK7bVV7DgcAU+fSxMoJ+8YnjaIyXvhtyu5V1RC3sNp/wroDxVbW4PtDaeCBiK8SU59g3+NWDWtJ+7Y4cSrSTGmmmnGmmtTmG0lLSUCCiiimBJSikoFUIeKcKYKeKQxwrnvElsXvLGcjKqHX6Ej/9ddCKjuoRcWskZAJKnGfXtUyV1YunPlkmcIyE8VUnjCKTzn1NX5fkcg/WsLXLt4LYeXwzHArlPUjNJXII7j7O008iu4/hRSBu/Ouu8PavHb2T3a2c0+QAIosbsn0yccfWvM7fN0TJd38aDPCAjP411dgLKVUdL5otq4QZBwR34PSm1Y0g3JXsdzqNxK1wkmSYXA2kjkfWtuzQfZkZfSvPX1e9sJY4jJHdWrnKsrhs+3qPxrv7CUNZo4GAyhsegI6VnsEpXVhl4jS7AAOGBJPag0+VssPao8100o2jc8zEz5pW7CGmmnU01oc42kpTRQAlFFFMCSlFIKWqEKKeKaKcKQDqzfEOu2vhvRLjU7vlYxhIwcGR+yj/ADwM1emnitbeS4nkWOGJS7uxwFUdSa+efHPi+bxZqreWWSxhyttEfT+8f9o/oOKaV2Fz0Gy1OTWdMt9SlgSBrtPN8tCSEyTxk1ma2xW2UBd/zgAY9as+GpoLnwppvlEFUt1jI9GAwR+dN1KN/JZdu7kGuNv3j0l8KKccdq1ihitwTjkDGa09Akt5LoK2nu/l8HEa8e9cfLrDwhURgzdMZ6Vc0jxJLbziZXwQQMCnaSRpCs1oj0bxFFYG3s447VY7mRx82wAgHg5rqIF+z2yKcbsBR+VcBFqc3iC9t5AS1zA/G0AgYIPOK7pR5Qh+0yqJZG2KCcZOCcD3wD+VQlqkxTk7OSJfrSEU/FJiuw8sYaaRUhHFMNADaSnUlACGiiigB9LQeASTgAZJPauD8S/FTRtF3wafjUbteDsOIkPu3f6D86q1xHeM6RxtJIyoijLMxwAPc1wviL4s6DoweKy3alcjjERxGD7v3/DNeO6/4z1vxLKft943k5ytvH8sa/h3/HNc+2SD71ah3Fc6jX/Huu+Jrgx3tz5dmeVtofljH17t+NYZbd04qhGxEoQ9Ktoaq3YTOn8Ia5Lpk725OYnO7aa9GivIL2LKNz6HrXjMbmNhIhwynIrr9K1QSRCRSQejD0NctanrzI7cPVuuVnUXXh+yvpgZYRuznKjB/StHTvAOmnMrrJtznBc4qlp91LLtIf8AGusGqQ2tkvmzAkDtXO7nSktzR02zstJgCQRIgA7CvMfiB4ykvPFdhYWU7JDZEyl42wfNIwCD7D+Zqz4m8ZSyRPBaMVHdhXl8Enmap9olfmRyAW71rRp+9dmVeolHlR6foPxcu7LdZ6/bG88psfaoSFkK9iV4DH6Yr0jQ/FGjeJIi+l3qSuoy0TDbIv1U/wAxkV83awPKEc6nDbgD79aI55rD7Nc2cskM8bb45EOGU/WuvkTPPufU5FNNeWeG/i8JhHDrtsB2a5tx+pT/AA/KvTbO9tdRtVubK4iuIGGQ8bZH/wBas2miiSkxT6bSAaaKDRQB88eKPiDrXiXdC8otbI/8u0BIDf7x6t/L2rkTg/hUmPWkMfftXSlYgiKHrTORVgoRSFQaBFaPm4X61ZJCcscD1NNEQDBx1HaonhZmy3NAxJLo4Kx/99Vb0jWZNMlAI3Rs3zgnqKp+RinNApHPB9alxuNSs7o9h0e+tLq0WeylilBALLn5l+oovrp5EbAA4rxqOWexnWSGV45FOQyHBrspfF3n6ErqAL5v3bAdAf730/rXLKi09DshXTWpX1m+RZ2tUJeXGZCP4R6fWuTnd2k+c9OAB0A9BV1N0RZySZHGMnqc96jNsZSeOa6YU7I5Z1OZlqC7N/YvazHMqjcjH+LH9asuC1rF9KpQWPlzK4k+6c1fUgwkDorYqrEFQt5UgI4zWtpuq32k3Xn2N1Lbyj+KNsZ+o6H8ayLpcJuHrUrODHHJng4ptXA9q8M/FGxvo0ttb22l1084D92/uf7p/SvQVZXUMjBlYZDA5BFfLERMkkh/hXj8a9d+F3iJ5VfQ7ly3lp5lsSecfxL/AF/OspQtqikz0k0UGisxnyc42gMKcRlM+lI/3PfrUkQ3REetdJmRDlPwoxzSA7W208/doAaPSlA46UAVIq8UARlRj0pjjAqYjjNRkbse9AFKZhIQijJzW5f6BNoccSXQTzZYVmQq24YP9RWfp8IbUySOEUt/T+tXrl5Z2LSSO4jQIgZidqjooz2HpR1GU41A+Y/MeeTU6tyqjuaj3AoGU5BNOjyZUHvTES4wtLbjIkTueacwwMVGrbJkPQdDSGJcLm3b6VDb5ktCh/CrUy4jdar2afJjsP1oAltOPKU9Wc5/AVtaPqkmka7Y30ZwYpMkeo7j8RWQVxJE3oWz+QqWRts8HrvpPUEfTkcqTwpLGcpIoZT6gjIorn/At79u8IWRJy0IMLf8BPH6YornsWfOLE5xU0HBxRRXSZohk/1xp/YCiimIRRnP1qdQMUUUhkDHIxTok3so9aKKAF085vro+mB+v/1qtTYUSEDgiiikijMiJjk29Qxq/EoMiN6UUVTJJZOAPeoJB8hI6gZoopIZKTvjB/vAU23QDcB60UUgJ5VAhB+tQO3+mrnpGm760UU0I9k+FN0z6bqVsc4inVh/wJf/AK1FFFYS3LR//9k=" alt="Jeffrey Cheng"/>
+<div class="tm-info"><div class="tm-name">Jeffrey Cheng</div><div class="tm-role">CTO</div><div class="tm-cred">EECS, UC Berkeley<br>ASIC Systems, Nvidia<br>2 exits (Broadcom, Apple)</div></div>
+</div>
+</div></div></div>
+
+<div class="S" data-i="11">
+<div class="s-head"><span class="tg rv">Timeline</span></div>
+<div class="s-body">
+<div class="H2 rv">Seed to Series A: <span class="ab">18 months.</span></div>
+<div class="tl rv">
+<div class="tl-r"><span class="tl-date">Apr 2026</span><span class="tl-ev">Seed closes &middot; team starts</span></div>
+<div class="tl-r"><span class="tl-date">Sep 2026</span><span class="tl-ev">Prototype complete</span></div>
+<div class="tl-r"><span class="tl-date">Oct 2026</span><span class="tl-ev">First customer &middot; Kickstarter launches</span></div>
+<div class="tl-r"><span class="tl-date">Jan 2027</span><span class="tl-ev">First production unit</span></div>
+<div class="tl-r"><span class="tl-date">Jul 2027</span><span class="tl-ev">Series A target ($13M)</span></div>
+</div></div></div>
+
+<div class="S" data-i="12">
+<div class="s-head"><span class="tg rv">The ask</span></div>
+<div class="s-body">
+<div class="H1 rv">$1.5M Seed</div>
+<div class="H3 rv" style="color:#777;margin-top:4px">$10M Post-Money SAFE</div>
+<div class="uf rv">
+<div class="uf-c"><div class="uf-p">~60%</div><div class="uf-l">Engineering</div></div>
+<div class="uf-c"><div class="uf-p">~20%</div><div class="uf-l">R&amp;D + prototyping</div></div>
+<div class="uf-c"><div class="uf-p">~10%</div><div class="uf-l">Business dev</div></div>
+<div class="uf-c"><div class="uf-p">~10%</div><div class="uf-l">Operations</div></div>
+</div>
+<div class="mt rv" style="margin-top:14px">Buys: prototype, binding customer, Kickstarter launch, path to Series A with revenue.</div>
+</div></div>
+
+<div class="S" data-i="13">
+<div class="s-head"></div>
+<div class="s-body" style="align-items:center;text-align:center">
+<div class="rv">
+<div class="close-q">Gas stations didn't make cars valuable.</div>
+<div class="close-q" style="margin-top:16px">But cars without gas stations were <em>useless.</em></div>
+</div>
+<div class="close-contact rv">earthity.com &nbsp;&middot;&nbsp; bhowmiktanumaya@gmail.com</div>
+</div></div>
+
+<nav class="nv" id="nv"></nav>
+</div>
+<script>
+(function(){
+var D=document.getElementById('D'),
+    ss=D.querySelectorAll('.S'),
+    nv=document.getElementById('nv'),
+    sn=document.getElementById('sn'),
+    N=ss.length,cur=0,lk=false;
+for(var i=0;i<N;i++){
+  var b=document.createElement('button');
+  b.className='dt'+(i===0?' on':'');
+  b.setAttribute('data-x',i);
+  nv.appendChild(b);
+}
+nv.addEventListener('click',function(e){
+  var t=e.target.closest('.dt');
+  if(t)go(+t.getAttribute('data-x'));
+});
+function go(n){
+  if(n===cur||n<0||n>=N||lk)return;
+  lk=true;
+  ss[cur].classList.add('out');
+  ss[cur].classList.remove('on');
+  var nx=ss[n];
+  setTimeout(function(){nx.classList.add('on');},60);
+  setTimeout(function(){
+    for(var j=0;j<N;j++)if(j!==n)ss[j].classList.remove('out');
+    lk=false;
+  },460);
+  cur=n;
+  sn.textContent=String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+  var ds=nv.querySelectorAll('.dt');
+  for(var i=0;i<ds.length;i++)ds[i].className='dt'+(i===cur?' on':'');
+}
+D.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
+});
+var tx=0;
+D.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+D.addEventListener('touchend',function(e){
+  var d=e.changedTouches[0].clientX-tx;
+  if(Math.abs(d)>50){d<0?go(cur+1):go(cur-1);}
+},{passive:true});
+D.focus();
+})();
+</script>
+</body>
+</html>
