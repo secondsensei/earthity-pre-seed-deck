@@ -56,7 +56,7 @@
     var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
     if(Math.abs(d)<8)return;
     wlk=true;
-    if(d<0)go((cur+1)%N);else go((cur-1+N)%N);
+    if(d>0)go((cur+1)%N);else go((cur-1+N)%N);
     if(wtmr)clearTimeout(wtmr);
     wtmr=setTimeout(function(){wlk=false;},500);
   },{passive:false});
