@@ -4,6 +4,7 @@
       nv=document.getElementById('nv'),
       sn=document.getElementById('sn'),
       N=ss.length,cur=0,lk=false;
+  for(var k=0;k<N;k++){ss[k].setAttribute('data-slide-num',String(k+1));ss[k].setAttribute('data-slide-total',String(N));}
   for(var i=0;i<N;i++){
     var b=document.createElement('button');
     b.className='dt'+(i===0?' on':'');
@@ -62,6 +63,7 @@
   },{passive:false});
   D.addEventListener('click',function(e){
     if(e.target.closest('.nv')||e.target.closest('a'))return;
+    if(window.getSelection&&window.getSelection().toString().length>0)return;
     go((cur+1)%N);
   });
   var tx=0;
