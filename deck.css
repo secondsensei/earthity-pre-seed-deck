@@ -186,6 +186,16 @@ html,body{height:100%;overflow:hidden;background:#fff}
 .d-sol-right{flex:0 0 44%;display:flex;flex-direction:column;justify-content:center;min-height:0}
 .d-sol-photo{flex:1 1 auto;max-height:none;min-height:0;align-self:stretch}
 
+/* ── Short-viewport fit ─────────────────────────────────────────────
+   On height-constrained laptops (e.g. 1220x672) slide 4's two cards
+   overflow and clip behind the nav dots. Tighten the card spacing only
+   when the viewport is short, so the normal 16:9 presentation is untouched. */
+@media (max-height: 740px){
+  .col{padding:14px 24px}
+  .d-sol-left{gap:10px}
+  .d-mt24-fill{margin-top:14px}
+}
+
 /* ── Print / PDF ────────────────────────────────────────────────── */
 @media print {
   @page{size:13.33in 7.5in;margin:0}
