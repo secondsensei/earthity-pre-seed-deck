@@ -100,7 +100,8 @@ html,body{height:100%;overflow:hidden;background:#fff}
 .tm-name{font-family:Manrope,system-ui;font-weight:700;font-size:clamp(20px,2.4vw,28px);color:#111;margin-bottom:8px}
 .tm-role{font-size:clamp(18px,2.2vw,24px);color:#185FA5;font-weight:500;margin-bottom:18px}
 .tm-cred{font-size:clamp(18px,2.2vw,24px);color:#777;line-height:1.65}
-.tm-logos{display:flex;flex-wrap:nowrap;gap:12px;margin-top:16px;align-items:center}
+.tm-cos{font-size:clamp(15px,1.8vw,20px);color:#999;line-height:1.6;margin-top:2px}
+.tm-logos{display:flex;flex-wrap:nowrap;gap:20px;margin-top:16px;align-items:center}
 .dark-logo-pill{display:inline-flex;align-items:center;background:#111;border-radius:7px;padding:4px 8px}
 .co-logo{height:36px;width:auto;opacity:.85;filter:grayscale(0.1)}
 .tl{margin-top:16px}
