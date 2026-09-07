@@ -71,7 +71,7 @@ html,body{height:100%;overflow:hidden;background:#fff}
 .ph.em .ph-t{color:#0C447C}
 .ph-d{font-size:clamp(16px,2vw,22px);color:#888;line-height:1.4}
 .ph.em .ph-d{color:#3A6A9B}
-.ps{display:flex;gap:0;align-items:center;margin-top:14px;flex:1;min-height:0;max-height:calc(100% - 80px)}
+.ps{display:flex;gap:20px;align-items:center;margin-top:14px;flex:1;min-height:0;max-height:calc(100% - 80px)}
 .ps-t{flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:24px}
 .sp{font-size:clamp(18px,2.2vw,24px);color:#555;line-height:1.9}
 .sp b{color:#111;font-weight:600}
